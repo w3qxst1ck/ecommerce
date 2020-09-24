@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+
+			{% for item in items %}
+			<div class="col-md-4">
+
+				<!-- Card -->
+				<div class="card">
+
+				  <!-- Card image -->
+				  <div class="view overlay">
+				    <img class="card-img-top" src="{{ item.image.url }}"
+				      alt="Card image cap">
+				    <a href="#!">
+				      <div class="mask rgba-white-slight"></div>
+				    </a>
+				  </div>
+
+				  <!-- Card content -->
+				  <div class="card-body">
+
+				    <!-- Title -->
+				    <h4 class="card-title">{{ item.title }}</h4>
+				    <!-- Text -->
+				    <p class="card-text">{{ item.description|truncatechars:100 }}</p>
+				    <p class="card-text">Price: {{ item.price }}</p>
+				    <!-- Button -->
+				    <a href="#" class="btn btn-warning">Button</a>
+
+				  </div>
+
+				</div>
+				<!-- Card -->
+			</div>
+			{% endfor %}
+			
+		</div>
+	</div>
+{% endblock content %}

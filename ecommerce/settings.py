@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     'crispy_forms',
+
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -84,7 +86,7 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ecommerce',
+        'NAME': 'ecommerce_db',
         'USER': 'custom_user',
         'PASSWORD': 'w3qxst1ck',
         'HOST': 'localhost',
