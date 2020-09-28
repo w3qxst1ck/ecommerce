@@ -1,6 +1,5 @@
 /*Item list*/
 
-.item-picture {
-	max-height: 200px;
-	max-width: 200px;
+.item-card {
+	width: 100%;
 }

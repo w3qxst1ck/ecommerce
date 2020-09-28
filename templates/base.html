@@ -25,19 +25,24 @@
   <body>
 
   	<!--Navbar -->
-	<nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1">
+	<nav class="mb-5 navbar navbar-expand-lg navbar-dark orange lighten-1">
 	  <a class="navbar-brand" href="{% url 'home-page' %}">ECOMMERCE</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
 	    aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
-	    <ul class="navbar-nav mr-auto">
-	      <form class="form-inline my-2 my-lg-0 ml-auto">
-		    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-		    <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit">Search</button>
-		   </form>
-	    </ul>
+
+      <form class="form-inline my-2 my-lg-0">
+	    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+	    <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit">Search</button>
+	   </form>
+	   <form class="form-inline">
+         <div class="md-form my-0">
+             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+         </div>
+      </form>
+
 	    <ul class="navbar-nav ml-auto nav-flex-icons">
 
 		   {% if request.user.is_authenticated %}
@@ -132,6 +137,5 @@
 	<!-- MDB core JavaScript -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 	<script src="https://kit.fontawesome.com/3dbdcd8c2e.js" crossorigin="anonymous"></script>
-	<script src="{% static 'js/record.js' %}"></script>
   </body>
 </html>

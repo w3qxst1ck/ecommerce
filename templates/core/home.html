@@ -5,39 +5,51 @@
 	<div class="container">
 		<div class="row">
 
-			{% for item in items %}
-			<div class="col-md-4">
-
-				<!-- Card -->
-				<div class="card">
-
-				  <!-- Card image -->
-				  <div class="view overlay">
-				    <img class="card-img-top" src="{{ item.image.url }}"
-				      alt="Card image cap">
-				    <a href="#!">
-				      <div class="mask rgba-white-slight"></div>
-				    </a>
-				  </div>
-
-				  <!-- Card content -->
-				  <div class="card-body">
-
-				    <!-- Title -->
-				    <h4 class="card-title">{{ item.title }}</h4>
-				    <!-- Text -->
-				    <p class="card-text">{{ item.description|truncatechars:100 }}</p>
-				    <p class="card-text">Price: {{ item.price }}</p>
-				    <!-- Button -->
-				    <a href="#" class="btn btn-warning">Button</a>
-
-				  </div>
-
-				</div>
-				<!-- Card -->
+			<div class="col-md-3">
+				{% for c in categories %}
+				<h3>{{ c.title }}</h3>
+				{% endfor %}
 			</div>
-			{% endfor %}
-			
+
+			<div class="col-md-9">
+				<!-- Card deck -->
+
+					<div class="card-deck">
+
+						{% for item in items %}
+						<div class="col-md-4 item">
+						  <!-- Card -->
+						  <div class="card mb-4 shadow item-card">
+						    <!--Card image-->
+						    <div class="view overlay">
+						      <img class="card-img-top" src="{{ item.image.url }}"
+						        alt="Card image cap">
+						      <a href="#!">
+						        <div class="mask rgba-white-slight"></div>
+						      </a>
+						    </div>
+
+						    <!--Card content-->
+						    <div class="card-body">
+
+						      <!--Title-->
+						      <h4 class="card-title" style="word-break: break-all;">{{ item.title|truncatechars:30 }}</h4>
+						      <!--Price-->
+						      <h6 class="card-title">Цена: {{ item.price }} <i class="fas fa-dollar-sign"></i></h6>
+						      <!--Text-->
+						      <p class="card-text text-justify" style="word-break: break-all;">{{ item.description|truncatechars:70 }}</p>
+						      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+						      <button type="button" class="btn btn-outline-warning waves-effect btn-md ml-0">Подробнее</button>
+						    </div>
+						  </div>
+						  <!-- Card -->
+					  </div>
+					  {% endfor %}
+
+					</div>
+
+			</div>
+							
 		</div>
 	</div>
 {% endblock content %}
