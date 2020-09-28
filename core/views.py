@@ -11,3 +11,8 @@ def item_list(request):
         'categories': categories,
     }
     return render(request, 'core/home.html', context)
+
+
+def item_detail(request):
+    pass
+
