@@ -21,7 +21,7 @@ class Item(models.Model):
     discount_price = models.FloatField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(default='default.jpg', upload_to='items/')
+    image = models.ImageField(upload_to='items/', blank=True)
 
     def __str__(self):
         return self.title
