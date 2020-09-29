@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -25,6 +26,12 @@ class Item(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('item-detail', kwargs={'category_slug': self.category.slug, 'item_slug': self.slug})
+
+    def get_discount_percent(self):
+        return round(100 - (self.discount_price / self.price) * 100)
 
     class Meta:
         verbose_name = 'Товар'
