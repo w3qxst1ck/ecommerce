@@ -16,6 +16,3 @@ def item_list(request):
 def item_detail(request):
     pass
 
-
-def cart(request):
-    pass
