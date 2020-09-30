@@ -47,6 +47,23 @@
         </div>
         <!--/.Carousel Wrapper-->
 
+        <div class="row mt-4">
+          <div class="col-md-12">
+
+            <div class="row">
+              <a href="{{ item.image.url }}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4 mb-2">
+                  <img src="{{ item.image.url }}" class="img-fluid rounded">
+              </a>
+              {% for image in item.itemimage_set.all %}
+              <a href="{{ image.image.url }}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4 mb-2">
+                  <img src="{{ image.image.url }}" class="img-fluid rounded">
+              </a>
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+
       </div>
 
       <div class="col-lg-5 text-center text-md-left">
