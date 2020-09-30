@@ -4,6 +4,9 @@
 	width: 100%;
 }
 
+nav.navbar .dropdown:hover > .dropdown-menu {
+ display: block; 
+}
 
 /*Item detail*/
 

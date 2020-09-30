@@ -9,8 +9,8 @@
   <section class="text-center">
 
     <!-- Section heading -->
-    <h3 class="mb-5 display-4 category-title-detail"> Category: {{ item.category.title }} </h3>
-
+    <h3 class="display-4 category-title-detail"> Category: {{ item.category.title }} </h3>
+    <hr class="mb-5 orange lighten-1" style="width: 83%">
     <div class="row">
 
       <div class="col-lg-6">
@@ -71,9 +71,9 @@
         <h2 class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
           <strong>{{ item.title }}</strong>
         </h2>
-        <span class="badge badge-pill badge-warning product mb-4 ml-xl-0 ml-4">{{ item.category.title }}</span>
+        <span class="badge badge-pill badge-warning product mb-4 ml-xl-0 ml-4 mr-1">{{ item.category.title }}</span>
         {% if item.discount_price %}
-			   <span class="badge badge-pill badge-danger my-3">Sale</span>
+			   <span class="badge badge-pill badge-danger my-3 mr-2">Sale</span>
 		    {% endif %}	
 
         <h3 class="h3-responsive text-center text-md-left mb-5 ml-xl-0 ml-4">
@@ -120,7 +120,7 @@
         <!--/.Accordion wrapper-->
 
         <!-- Add to Cart -->
-        <section class="color">
+        <section class="color ml-4">
           <div class="mt-5">
             <p class="grey-text">Choose your color</p>
             <div class="row text-center text-md-left">
