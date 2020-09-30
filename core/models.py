@@ -37,3 +37,23 @@ class Item(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
+
+class ItemImage(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='items/', blank=True)
+
+    class Meta:
+        verbose_name = "Фото товара"
+        verbose_name_plural = "Фото товаров"
+
+    def __str__(self):
+        return '{} # {}'.format(self.item.title, self.id)
+
+
+
+
+
+
+
+
+

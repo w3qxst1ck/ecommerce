@@ -4,15 +4,57 @@
 
 {% block content %}
 	<div class="container">
+
+	   <!-- Items -->
 		<div class="row">
 
 			<div class="col-md-3">
-				{% for c in categories %}
-				<h3>{{ c.title }}</h3>
-				{% endfor %}
+				<h3>Filters</h3>
 			</div>
 
 			<div class="col-md-9">
+
+				<!-- <div class="list-group list-group-horizontal-sm d-flex justify-content-center ml-3 mb-5">
+			     {% for c in categories %}
+				  <li class="list-group-item list-group-item-warning">{{ c.title }}</li>
+				  {% endfor %}
+			   </div> -->
+
+			   <!--Navbar-->
+		      <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-4 ml-4 mt-1 mb-5 second-navbar">
+
+		        <!-- Navbar brand -->
+		        <span class="navbar-brand">Categories:</span>
+
+		        <!-- Collapse button -->
+		        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
+		          aria-expanded="false" aria-label="Toggle navigation">
+		          <span class="navbar-toggler-icon"></span>
+		        </button>
+
+		        <!-- Collapsible content -->
+		        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+		          <!-- Links -->
+		          <ul class="navbar-nav mr-auto">
+		            <li class="nav-item active">
+		              <a class="nav-link" href="#">All
+		                <span class="sr-only">(current)</span>
+		              </a>
+		            </li>
+		            {% for c in categories %}
+		            <li class="nav-item">
+		              <a class="nav-link" href="#">{{ c.title }}</a>
+		            </li>
+		            {% endfor %}
+		          </ul>
+		          <!-- Links -->
+		        </div>
+		        <!-- Collapsible content -->
+
+		      </nav>
+		      <!--/.Navbar-->
+
 				<!-- Card deck -->
 
 					<div class="card-deck">
@@ -52,8 +94,10 @@
 						      <!--Text-->
 						      <p class="card-text text-justify" style="word-break: break-all;">{{ item.description|truncatechars:70 }}</p>
 						      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-						      <a type="button" class="btn btn-outline-warning waves-effect btn-md ml-0" href="{{ item.get_absolute_url }}">About</a>
-						      <a href="" class="d-flex justify-content-end amber-text"><i class="fas fa-cart-plus mr-2" aria-hidden="true"></i></a>
+						      <div class="d-flex justify-content-between align-items-center">
+							      <a type="button" class="btn btn-outline-warning waves-effect btn-md ml-0" href="{{ item.get_absolute_url }}">About</a>
+							      <a href="" class="amber-text"><i class="fas fa-cart-plus mr-2" aria-hidden="true"></i></a>
+						      </div>
 						    </div>
 						  </div>
 						  <!-- Card -->

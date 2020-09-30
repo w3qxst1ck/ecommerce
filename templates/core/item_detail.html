@@ -5,7 +5,6 @@
 {% block content %}
 <div class="container my-5 py-5 z-depth-1">
 
-
   <!--Section: Content-->
   <section class="text-center">
 
@@ -25,14 +24,12 @@
               <img src="{{ item.image.url }}"
                 alt="First slide" class="img-fluid">
             </div>
+            {% for image in item.itemimage_set.all %}
             <div class="carousel-item">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/18.jpg"
+              <img src="{{ image.image.url }}"
                 alt="Second slide" class="img-fluid">
             </div>
-            <div class="carousel-item">
-              <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/19.jpg"
-                alt="Third slide" class="img-fluid">
-            </div>
+            {% endfor %}
           </div>
           <!--/.Slides-->
 
@@ -59,8 +56,8 @@
         </h2>
         <span class="badge badge-pill badge-warning product mb-4 ml-xl-0 ml-4">{{ item.category.title }}</span>
         {% if item.discount_price %}
-			<span class="badge badge-pill badge-danger my-3">Sale</span>
-		{% endif %}	
+			   <span class="badge badge-pill badge-danger my-3">Sale</span>
+		    {% endif %}	
 
         <h3 class="h3-responsive text-center text-md-left mb-5 ml-xl-0 ml-4">
           <span class="red-text font-weight-bold">
