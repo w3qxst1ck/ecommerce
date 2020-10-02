@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg  mb-5">
+<nav class="navbar navbar-expand-lg">
     <div class="container">
 
       <!-- Brand -->
@@ -31,7 +31,7 @@
 
            {% if request.user.is_authenticated %}
              <li class="nav-item orange-text">
-                  <a class="nav-link waves-effect waves-light orange-text">1
+                  <a class="nav-link waves-effect waves-light orange-text">{{ items_in_cart }}
                     <i class="fas fa-shopping-cart"></i> Cart
                   </a>
                 </li>
