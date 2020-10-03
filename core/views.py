@@ -61,3 +61,14 @@ def add_to_cart(request, slug):
         order.items.add(order_item)
         return cart_add_redirect(request, item)
 
+
+def category_item(request, category_slug):
+    category = Category.objects.get(slug=category_slug)
+    items = Item.objects.filter(category=category)
+    categories = Category.objects.all()
+    context = {
+        'items': items,
+        'categories': categories,
+        'category': category
+    }
+    return render(request, 'core/category_items.html', context)

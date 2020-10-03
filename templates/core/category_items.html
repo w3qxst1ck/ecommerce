@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %}Home page{% endblock %}
+{% block title %}{{ category_title }}{% endblock %}
+
 
 {% block content %}
 	<div class="container">
@@ -13,12 +14,6 @@
 			</div>
 
 			<div class="col-md-9">
-
-				<!-- <div class="list-group list-group-horizontal-sm d-flex justify-content-center ml-3 mb-5">
-			     {% for c in categories %}
-				  <li class="list-group-item list-group-item-warning">{{ c.title }}</li>
-				  {% endfor %}
-			   </div> -->
 
 			   <!--Navbar-->
 		      <nav class="navbar navbar-expand-lg navbar-dark orange lighten-2 ml-4 mt-1 mb-5 second-navbar">
@@ -43,7 +38,7 @@
 		              </a>
 		            </li>
 		            {% for c in categories %}
-		            	{% if c.item_set.all %}
+		            {% if c.item_set.all %}
 		            <li>
 			            <a class="nav-link" href="{% url 'category-items' c.slug %}">
 			              {{ c.title }}
@@ -52,8 +47,8 @@
 			           	<ul class="dropdown-menu">
 			           		{% for item in c.item_set.all %}
 						      <li class="mb-0"><a href="{{ item.get_absolute_url }}" class="dropdown-item" style="color: #45526e;"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i> {{ item.title }}</a></li>
-						     {% endfor %}
-						</ul>
+						      {% endfor %}
+						   </ul>
 		            </li>
 		            {% else %}
 		            <li class="nav-item">
@@ -125,3 +120,5 @@
 		</div>
 	</div>
 {% endblock content %}
+
+
