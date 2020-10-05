@@ -31,7 +31,7 @@
 
            {% if request.user.is_authenticated %}
              <li class="nav-item orange-text">
-                  <a class="nav-link waves-effect waves-light orange-text">{{ items_in_cart }}
+                  <a class="nav-link waves-effect waves-light orange-text" href="{% url 'cart-page' %}">{{ items_in_cart }}
                     <i class="fas fa-shopping-cart"></i> Cart
                   </a>
                 </li>
