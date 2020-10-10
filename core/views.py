@@ -135,6 +135,6 @@ def cart_list(request):
 
 @login_required
 def add_to_wish_list(request):
-    pass
+    return 0
 
 
