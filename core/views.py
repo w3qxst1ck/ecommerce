@@ -8,7 +8,7 @@ from core.models import Item, Category, OrderItem, Order, WishItem
 current_path = ''
 
 
-def item_list(request, category_slug=None):
+def item_list(request, category_slug=None, ordering_obj=None):
     categories = Category.objects.all()
     wish_items = []
     if request.user.is_authenticated:
@@ -17,8 +17,15 @@ def item_list(request, category_slug=None):
         category = Category.objects.get(slug=category_slug)
         items = Item.objects.filter(category=category)
     else:
-        items = Item.objects.all().order_by('category')
+        if ordering_obj:
+            if ordering_obj == 'sale':
+                items = [item for item in Item.objects.all() if item.discount_price]
+            else:
+                items = Item.objects.all().order_by(ordering_obj)
+        else:
+            items = Item.objects.all().order_by('category')
         category = None
+
     context = {
         'items': items,
         'categories': categories,
