@@ -3,8 +3,7 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
-from core.models import Item, Category, OrderItem, Order
-
+from core.models import Item, Category, OrderItem, Order, WishItem
 
 current_path = ''
 
@@ -12,9 +11,12 @@ current_path = ''
 def item_list(request):
     items = Item.objects.all().order_by('category')
     categories = Category.objects.all()
+    wish_items = WishItem.objects.filter(user=request.user)[0].items.all()
+    print(wish_items)
     context = {
         'items': items,
         'categories': categories,
+        'wish_items': wish_items
     }
     global current_path
     current_path = request.path
