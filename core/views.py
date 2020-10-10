@@ -78,19 +78,6 @@ def add_to_cart(request, slug, cart=None):
             return cart_add_redirect(request, item)
 
 
-# def category_item(request, category_slug):
-#     category = Category.objects.get(slug=category_slug)
-#     items = Item.objects.filter(category=category)
-#     categories = Category.objects.all()
-#     context = {
-#         'items': items,
-#         'categories': categories,
-#         'category': category,
-#         'current_slug': category_slug
-#     }
-#     return render(request, 'core/category_items.html', context)
-
-
 @login_required
 def cart_delete_item(request, slug):
     item = get_object_or_404(Item, slug=slug)
@@ -138,8 +125,7 @@ def cart_delete_single_item(request, slug):
 @login_required
 def cart_list(request):
     order = Order.objects.filter(user=request.user, ordered=False)
-    items = order[0].items.all()
-    print(items)
+    items = order[0].items.all().order_by('item__title')
     context = {
         'items': items,
         'order': order[0]
