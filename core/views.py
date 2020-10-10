@@ -62,3 +62,8 @@ def add_to_cart(request, slug):
         order.items.add(order_item)
         return cart_add_redirect(request, item)
 
+
+@login_required
+def add_to_wish_list(request):
+    pass
+
