@@ -30,6 +30,9 @@
           <ul class="navbar-nav ml-auto nav-flex-icons">
 
            {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link orange-text" href="{% url 'wish-list' %}">Favorites <i class="fas fa-heart orange-text"></i></a>
+              </li>
              <li class="nav-item orange-text">
                   <a class="nav-link waves-effect waves-light orange-text" href="{% url 'cart-page' %}">{{ items_in_cart }}
                     <i class="fas fa-shopping-cart"></i> Cart

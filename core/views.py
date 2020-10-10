@@ -10,7 +10,9 @@ current_path = ''
 
 def item_list(request, category_slug=None):
     categories = Category.objects.all()
-    wish_items = [item.item for item in WishItem.objects.filter(user=request.user)]
+    wish_items = []
+    if request.user.is_authenticated:
+        wish_items = [item.item for item in WishItem.objects.filter(user=request.user)]
     if category_slug:
         category = Category.objects.get(slug=category_slug)
         items = Item.objects.filter(category=category)
@@ -31,9 +33,13 @@ def item_list(request, category_slug=None):
 def item_detail(request, item_slug, category_slug):
     item = Item.objects.get(slug=item_slug)
     category = Category.objects.get(slug=category_slug)
+    wish_items = []
+    if request.user.is_authenticated:
+        wish_items = [item.item for item in WishItem.objects.filter(user=request.user)]
     context = {
         'item': item,
-        'category': category
+        'category': category,
+        'wish_items': wish_items,
     }
     global current_path
     current_path = request.path
@@ -134,8 +140,37 @@ def cart_list(request):
 
 
 @login_required
-def add_to_wish_list(request):
-    pass
-    # comment
+def wish_list(request):
+    wish_items = WishItem.objects.filter(user=request.user).order_by('-adding_date')
+    context = {
+        'wish_items': wish_items,
+    }
+    return render(request, 'core/wish_list.html', context)
+
+
+@login_required
+def add_to_wish_list(request, item_slug):
+    item = get_object_or_404(Item, slug=item_slug)
+    WishItem.objects.create(user=request.user, item=item)
+    messages.info(request, 'Item was added to your Favorites')
+    return redirect('home-page')
+
+
+@login_required
+def remove_from_wish_list(request, item_slug):
+    item = get_object_or_404(Item, slug=item_slug)
+    wish_item = WishItem.objects.get(user=request.user, item=item)
+    wish_item.delete()
+    messages.warning(request, 'Item was removed form your Favorites')
+    return redirect('home-page')
+
+
+@login_required
+def remove_from_wish_list_in_list(request, item_slug):
+    item = get_object_or_404(Item, slug=item_slug)
+    wish_item = WishItem.objects.get(user=request.user, item=item)
+    wish_item.delete()
+    messages.warning(request, 'Item was removed form your Favorites')
+    return redirect('wish-list')
 
 

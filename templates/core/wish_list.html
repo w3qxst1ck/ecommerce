@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Wish list - {{ user.username }}{% endblock %}
+
+{% block content %}
+
+{% if wish_items %}
+<div class="container mt-5">
+
+  <!--Section: Content-->
+  <section class="">
+
+  	{% for wish_item in wish_items %}
+  	<!-- Grid row -->
+    <div class="row mb-5">
+
+      <!-- Grid column -->
+      <div class="col-lg-3 col-md-12 mb-lg-0 mb-4 mt-3">
+
+				<!-- Featured image -->
+        <div class="view overlay rounded z-depth-1 mb-lg-0 mb-4">
+          <img class="img-fluid" src="{{ wish_item.item.image.url }}" alt="Sample image">
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-lg-7 col-md-6 mb-md-0 mb-4 mt-xl-4">
+
+      	<h3 class="font-weight-normal mb-3">{{ wish_item.item.title }}</h3>
+
+      	{% if wish_item.item.discount_price %}
+	        <h4 class="h4-responsive text-center text-md-left mb-2 ml-xl-0 ml-4">
+	          <span class="orange-text font-weight-bold">
+	            <strong><i class="fas fa-dollar-sign fa-sm"></i> {{ wish_item.item.discount_price }}</strong>
+	          </span>
+	          
+	          <span class="grey-text">
+	            <small>
+	              <s><i class="fas fa-dollar-sign fa-sm"></i>{{ wish_item.item.price }}</s>
+	            </small>
+	          </span>
+	        </h4>
+	        {% else %}
+	        <h4 class="h4-responsive text-center text-md-left mb-2 ml-xl-0 ml-4">
+	          <span class="orange-text font-weight-bold">
+	            <strong><i class="fas fa-dollar-sign fa-sm"></i> {{ wish_item.item.price }}</strong>
+	          </span>
+	        </h4>
+         {% endif %}
+
+         <p class="text-muted">{{ wish_item.item.description|truncatewords:35 }}</p>
+         <div class="align-items-center">
+	         <!-- <i class="fas fa-heart red-text fa-lg mr-3"></i> -->
+	         <a type="button" class="btn btn-outline-warning waves-effect btn-md ml-0" href="{{ wish_item.item.get_absolute_url }}">About</a>
+	         <a class="btn btn-outline-warning waves-effect btn-md mx-0" href="{% url 'add-to-cart' wish_item.item.slug %}"><i class="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add to cart</a>
+         </div>
+         <p class="text-muted"><a href="{% url 'remove-from-wish-list-in-list' wish_item.item.slug %}">Remove from wish list</a></p>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+    {% endfor %}
+
+  </section>
+  <!--Section: Content-->
+
+</div>
+
+{% else %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<h4 class="orange-text lead h4-responsive">You have not items in wish list.</h4>
+		</div>
+	</div>
+</div>
+{% endif %}
+
+{% endblock %}
