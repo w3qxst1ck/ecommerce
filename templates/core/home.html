@@ -99,7 +99,14 @@
 						      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
 						      <div class="d-flex justify-content-between align-items-center">
 							      <a type="button" class="btn btn-outline-warning waves-effect btn-md ml-0" href="{{ item.get_absolute_url }}">About</a>
-							      <a href="{% url 'add-to-cart' item.slug %}" class="amber-text"><i class="fas fa-cart-plus mr-2" aria-hidden="true"></i></a>
+							      <div>
+							      	{% if item in wish_items %}
+								      <i class="fas fa-heart red-text mr-2"></i>
+								      {% else %}								      
+								      <i class="far fa-heart red-text mr-2"></i>
+								      {% endif %}
+								      <a href="{% url 'add-to-cart' item.slug %}" class="amber-text"><i class="fas fa-cart-plus mr-2" aria-hidden="true"></i></a>
+							      </div>
 						      </div>
 						    </div>
 						  </div>

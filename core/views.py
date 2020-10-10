@@ -12,9 +12,11 @@ current_path = ''
 def item_list(request):
     items = Item.objects.all().order_by('category')
     categories = Category.objects.all()
+    wish_items = [item.item for item in WishItem.objects.filter(user=request.user)]
     context = {
         'items': items,
         'categories': categories,
+        'wish_items': wish_items
     }
     global current_path
     current_path = request.path
@@ -106,4 +108,8 @@ def cart_list(request):
     }
     return render(request, 'core/cart.html', context)
 
+
+@login_required
+def add_to_wish_list(request):
+    pass
 
