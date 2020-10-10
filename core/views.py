@@ -11,8 +11,7 @@ current_path = ''
 def item_list(request):
     items = Item.objects.all().order_by('category')
     categories = Category.objects.all()
-    wish_items = WishItem.objects.filter(user=request.user)[0].items.all()
-    print(wish_items)
+    wish_items = [item.item for item in WishItem.objects.filter(user=request.user)]
     context = {
         'items': items,
         'categories': categories,

@@ -75,7 +75,7 @@ class Order(models.Model):
 
 class WishItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    items = models.ManyToManyField(Item)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, blank=True, null=True)
     adding_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
