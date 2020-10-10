@@ -42,25 +42,14 @@
 		                <span class="sr-only">(current)</span>
 		              </a>
 		            </li>
+
 		            {% for c in categories %}
-		            {% if c.item_set.all %}
-		            <li>
-			            <a class="nav-link" href="{% url 'category-items' c.slug %}">
-			              {{ c.title }}
-			              <b class="caret"></b>
-			           	</a>
-			           	<ul class="dropdown-menu">
-			           		{% for item in c.item_set.all %}
-						      <li class="mb-0"><a href="{{ item.get_absolute_url }}" class="dropdown-item" style="color: #45526e;"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i> {{ item.title }}</a></li>
-						     {% endfor %}
-						</ul>
-		            </li>
-		            {% else %}
-		            <li class="nav-item">
-		              <a class="nav-link" href="{% url 'category-items' c.slug %}">{{ c.title }}</a>
-		            </li>
-		            {% endif %}
-		            {% endfor %}
+				            <li class="nav-item">
+					            <a class="nav-link" href="{% url 'category-items' c.slug %}">
+					              {{ c.title }}
+					           	</a>
+				            </li>
+	            	{% endfor %}
 		          </ul>
 		          <!-- Links -->
 		        </div>
