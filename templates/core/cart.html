@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<h3>Some navigationbar</h3>
+		</div>
+	<div class="col-md-9">
+		<div class="container my-1 py-3 z-depth-1 rounded">
+
+		  <!--Section: Content-->
+		  <section class="dark-grey-text">
+
+		    <!-- Shopping Cart table -->
+		    <div class="table-responsive">
+
+		      <table class="table product-table mb-0">
+
+		        <!-- Table head -->
+		        <thead class="navbar-dark orange lighten-2">
+		          <tr>
+		            <th></th>
+		            <th class="font-weight-bold">
+		              <strong>Product</strong>
+		            </th>
+		            <th class="font-weight-bold">
+		              <strong>Sale</strong>
+		            </th>
+		            <th></th>
+		            <th class="font-weight-bold">
+		              <strong>Price</strong>
+		            </th>
+		            <th class="font-weight-bold">
+		              <strong>Count</strong>
+		            </th>
+		            <th class="font-weight-bold">
+		              <strong>Total</strong>
+		            </th>
+		            <th></th>
+		          </tr>
+		        </thead>
+		        <!-- /.Table head -->
+
+		        <!-- Table body -->
+		        <tbody>
+
+		          <!-- First row -->
+		          {% for item in items %}
+		          <tr>
+		            <th scope="row">
+		              <img src="{{ item.item.image.url }}" alt="" class="img-fluid z-depth-0 img-thumbnail" style="max-width: 70% !important; " alt="thumbnail">
+		            </th>
+		            <td>
+		              <h5 class="mt-3">
+		                <strong>{{ item.item.title|truncatechars:20 }}</strong>
+		              </h5>
+		              <p class="text-muted">{{ item.item.category }}</p>
+		            </td>
+
+		            {% if item.item.discount_price %}
+		            	<td><span class="red-text">sale:</span> {{ item.item.get_discount_percent }}%</td>
+		            {% else %}
+		            	<td><span class="red-text">sale:</span> 0%</td>
+		            {% endif %}	
+
+		            <td></td>
+		            {% if item.item.discount_price %}
+		            	<td>${{ item.item.discount_price }}</td>
+		            {% else %}
+		            	<td>${{ item.item.price }}</td>
+		            {% endif %}
+
+
+		            <td>
+		              {{ item.quantity }}
+		            </td>
+		            <td class="font-weight-bold">
+		              <strong>${{ item.total_amount }}</strong>
+		            </td>
+		            <td>
+						<a href="{% url 'delete-from-cart' item.item.slug %}" class="red-text btn-sm"><i class="fas fa-trash mr-2" aria-hidden="true"></i></a>
+		            </td>
+		          </tr>
+		          {% endfor %}
+		          <!-- /.First row -->
+
+		          <!-- Fourth row -->
+		          <tr>
+		            <td colspan="3"></td>
+		            <td>
+					{% if order %}
+		              <h4 class="mt-2">
+		                <strong>Total</strong>
+		              </h4>
+		            </td>
+		            <td class="text-right">
+		              <h4 class="mt-2">
+		                	<strong>{{ order.total_order_amount }}</strong>
+		              </h4>
+		            </td>
+
+		            <td colspan="3" class="text-right">
+		            	<button class="btn btn-outline-warning waves-effect btn-md ml-0">
+							<a href="#" class="amber-text"> Complete order<i class="fas fa-angle-right right"></i></a>
+						</button>
+		            </td>
+		            {% else %}
+		            	<h4>There are not items in your cart </h4>
+					{% endif %}
+		          </tr>
+		          <!-- Fourth row -->
+
+		        </tbody>
+		        <!-- /.Table body -->
+
+		      </table>
+
+		    </div>
+		    <!-- /.Shopping Cart table -->
+
+		  </section>
+		  <!--Section: Content-->
+
+		</div>
+	</div>
+	</div>
+</div>
+{% endblock content %}

@@ -61,6 +61,10 @@ class OrderItem(models.Model):
     def __str__(self):
         return f'{self.item.title} - {self.quantity}'
 
+    def total_amount(self):
+        print(self.quantity * self.item.discount_price if self.item.discount_price else self.quantity * self.item.price)
+        return self.quantity * self.item.discount_price if self.item.discount_price else self.quantity * self.item.price
+
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -72,6 +76,13 @@ class Order(models.Model):
     def __str__(self):
         return self.user.username
 
+    def total_order_amount(self):
+        result = 0
+        for item in self.items.all():
+            result += item.total_amount()
+            print(result)
+        print(result)
+        return result
 
 
 

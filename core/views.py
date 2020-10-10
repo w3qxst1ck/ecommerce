@@ -61,3 +61,48 @@ def add_to_cart(request, slug):
         order.items.add(order_item)
         return cart_add_redirect(request, item)
 
+
+def category_item(request, category_slug):
+    category = Category.objects.get(slug=category_slug)
+    items = Item.objects.filter(category=category)
+    categories = Category.objects.all()
+    context = {
+        'items': items,
+        'categories': categories,
+        'category': category
+    }
+    return render(request, 'core/category_items.html', context)
+
+
+@login_required
+def cart_delete_item(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item = OrderItem.objects.filter(item=item, user=request.user, ordered=False)[0]
+            order.items.remove(order_item)
+            order_item.delete()
+            messages.info(request, f'Product has been delete from order')
+            return redirect('cart-page')
+        else:
+            messages.info(request, f'This product in your cart')
+            return redirect('cart-page')
+    else:
+        messages.info(request, f'you havent got active order')
+        return redirect('cart-page')
+
+
+@login_required
+def cart_list(request):
+    order = Order.objects.filter(user=request.user, ordered=False)
+    items = order[0].items.all()
+    print(items)
+    context = {
+        'items': items,
+        'order': order
+    }
+    return render(request, 'core/cart.html', context)
+
+
