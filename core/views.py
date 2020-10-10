@@ -69,7 +69,8 @@ def category_item(request, category_slug):
     context = {
         'items': items,
         'categories': categories,
-        'category': category
+        'category': category,
+        'current_slug': category_slug
     }
     return render(request, 'core/category_items.html', context)
 
@@ -84,13 +85,13 @@ def cart_delete_item(request, slug):
             order_item = OrderItem.objects.filter(item=item, user=request.user, ordered=False)[0]
             order.items.remove(order_item)
             order_item.delete()
-            messages.info(request, f'Product has been delete from order')
+            messages.info(request, 'Product has been deleted from order')
             return redirect('cart-page')
         else:
-            messages.info(request, f'This product in your cart')
+            messages.info(request, 'This product in your cart')
             return redirect('cart-page')
     else:
-        messages.info(request, f'you havent got active order')
+        messages.info(request, 'you havent got active order')
         return redirect('cart-page')
 
 
@@ -101,7 +102,7 @@ def cart_list(request):
     print(items)
     context = {
         'items': items,
-        'order': order
+        'order': order[0]
     }
     return render(request, 'core/cart.html', context)
 
