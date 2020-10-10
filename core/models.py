@@ -84,6 +84,7 @@ class Order(models.Model):
         print(result)
         return result
 
+
 class WishItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, blank=True, null=True)
