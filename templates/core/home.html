@@ -48,36 +48,6 @@
 
 				</div>
 
-<!-- 				<div class="btn-group dropright">
-				  <button type="button" class="btn btn-outline-warning btn-sm">Price</button>
-				  <button type="button" class="btn btn-outline-warning dropdown-toggle px-3 btn-sm" data-toggle="dropdown" aria-haspopup="true"
-				    aria-expanded="false">
-				    <span class="sr-only">Toggle Dropdown</span>
-				  </button>
-				  <div class="dropdown-menu">
-				  	<a class="dropdown-item text-warning" href="{% url 'order-by' 'price' %}">Price<i class="fas fa-angle-double-up"></i></a>
-				    <a class="dropdown-item text-warning" href="{% url 'order-by' '-price' %}">Price<i class="fas fa-angle-double-down"></i></a>
-				    <a class="dropdown-item" href="#">Something else here</a>
-				    <div class="dropdown-divider"></div>
-				    <a class="dropdown-item" href="#">Separated link</a>
-				  </div>
-				</div>
-
-				<div class="btn-group dropright">
-				  <button type="button" class="btn btn-outline-warning btn-sm">Sale</button>
-				  <button type="button" class="btn btn-outline-warning dropdown-toggle px-3 btn-sm" data-toggle="dropdown" aria-haspopup="true"
-				    aria-expanded="false">
-				    <span class="sr-only">Toggle Dropdown</span>
-				  </button>
-				  <div class="dropdown-menu">
-				  	<a class="dropdown-item text-warning" href="{% url 'order-by' 'sale' %}">Discount<i class="fab fa-salesforce"></i></a>
-				    <a class="dropdown-item text-warning" href="#"></a>
-				    <a class="dropdown-item" href="#">Something else here</a>
-				    <div class="dropdown-divider"></div>
-				    <a class="dropdown-item" href="#">Separated link</a>
-				  </div>
-				</div> -->
-
 			</div>
 
 			<div class="col-md-9">
@@ -168,7 +138,7 @@
 									      <a href="{% url 'add-to-wish-list' item.slug %}"><i class="far fa-heart red-text mr-2"></i></a>
 									      {% endif %}
 									   {% else %}
-									   	<i class="far fa-heart red-text mr-2"></i>
+									   	<a href="{% url 'add-to-wish-list' item.slug %}"><i class="far fa-heart red-text mr-2"></i></a>
 									   {% endif %}
 									   <a href="{% url 'add-to-cart' item.slug %}" class="amber-text"><i class="fas fa-cart-plus mr-2" aria-hidden="true"></i></a>
 

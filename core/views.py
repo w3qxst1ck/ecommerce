@@ -13,6 +13,7 @@ def item_list(request, category_slug=None, ordering_obj=None):
     wish_items = []
     if request.user.is_authenticated:
         wish_items = [item.item for item in WishItem.objects.filter(user=request.user)]
+
     if category_slug:
         category = Category.objects.get(slug=category_slug)
         items = Item.objects.filter(category=category)
