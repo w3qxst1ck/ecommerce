@@ -8,14 +8,20 @@ from core.models import Item, Category, OrderItem, Order, WishItem
 current_path = ''
 
 
-def item_list(request):
-    items = Item.objects.all().order_by('category')
+def item_list(request, category_slug=None):
     categories = Category.objects.all()
     wish_items = [item.item for item in WishItem.objects.filter(user=request.user)]
+    if category_slug:
+        category = Category.objects.get(slug=category_slug)
+        items = Item.objects.filter(category=category)
+    else:
+        items = Item.objects.all().order_by('category')
+        category = None
     context = {
         'items': items,
         'categories': categories,
-        'wish_items': wish_items
+        'wish_items': wish_items,
+        'category': category
     }
     global current_path
     current_path = request.path
@@ -43,7 +49,7 @@ def cart_add_redirect(request, item):
 
 
 @login_required
-def add_to_cart(request, slug):
+def add_to_cart(request, slug, cart=None):
     item = get_object_or_404(Item, slug=slug)
     order_item, created = OrderItem.objects.get_or_create(item=item, user=request.user, ordered=False)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
@@ -52,28 +58,37 @@ def add_to_cart(request, slug):
         if order.items.filter(item__slug=item.slug).exists():
             order_item.quantity += 1
             order_item.save()
-            return cart_add_redirect(request, item)
+            if cart:
+                return redirect('cart-page')
+            else:
+                return cart_add_redirect(request, item)
         else:
             order.items.add(order_item)
-            return cart_add_redirect(request, item)
+            if cart:
+                return redirect('cart-page')
+            else:
+                return cart_add_redirect(request, item)
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
-        return cart_add_redirect(request, item)
+        if cart:
+            return redirect('cart-page')
+        else:
+            return cart_add_redirect(request, item)
 
 
-def category_item(request, category_slug):
-    category = Category.objects.get(slug=category_slug)
-    items = Item.objects.filter(category=category)
-    categories = Category.objects.all()
-    context = {
-        'items': items,
-        'categories': categories,
-        'category': category,
-        'current_slug': category_slug
-    }
-    return render(request, 'core/category_items.html', context)
+# def category_item(request, category_slug):
+#     category = Category.objects.get(slug=category_slug)
+#     items = Item.objects.filter(category=category)
+#     categories = Category.objects.all()
+#     context = {
+#         'items': items,
+#         'categories': categories,
+#         'category': category,
+#         'current_slug': category_slug
+#     }
+#     return render(request, 'core/category_items.html', context)
 
 
 @login_required
@@ -89,10 +104,34 @@ def cart_delete_item(request, slug):
             messages.info(request, 'Product has been deleted from order')
             return redirect('cart-page')
         else:
-            messages.info(request, 'This product in your cart')
+            messages.info(request, 'This product is not in your cart')
             return redirect('cart-page')
     else:
-        messages.info(request, 'you havent got active order')
+        messages.info(request, 'You haven\'t got active order')
+        return redirect('cart-page')
+
+
+@login_required
+def cart_delete_single_item(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item = OrderItem.objects.filter(item=item, user=request.user, ordered=False)[0]
+            if order_item.quantity == 1:
+                order.items.remove(order_item)
+                order_item.delete()
+                messages.info(request, 'This item has been remove from your cart')
+            else:
+                order_item.quantity -= 1
+                order_item.save()
+            return redirect('cart-page')
+        else:
+            messages.info(request, 'This product is not in your cart')
+            return redirect('cart-page')
+    else:
+        messages.info(request, 'You haven\'t got active order')
         return redirect('cart-page')
 
 
@@ -111,4 +150,5 @@ def cart_list(request):
 @login_required
 def add_to_wish_list(request):
     pass
+
 

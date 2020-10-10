@@ -74,8 +74,10 @@
 		            {% endif %}
 
 
-		            <td>
-		              {{ item.quantity }}
+		            <td  align="center">
+						<div class="mb-2"><a href="{% url 'add-to-cart-from-cart' item.item.slug 'cart' %}" class="btn btn-outline-amber btn-sm"><i class="fas fa-angle-up"></i></a></div>
+						<div class="mb-1">{{ item.quantity }}</div>
+						<div><a href="{% url 'delete-from-cart-single-item' item.item.slug %}" class="btn btn-outline-amber btn-sm"><i class="fas fa-angle-down"></i></a></div>
 		            </td>
 		            <td class="font-weight-bold">
 		              <strong>${{ item.total_amount }}</strong>
