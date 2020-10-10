@@ -82,12 +82,6 @@
 
 			<div class="col-md-9">
 
-				<!-- <div class="list-group list-group-horizontal-sm d-flex justify-content-center ml-3 mb-5">
-			     {% for c in categories %}
-				  <li class="list-group-item list-group-item-warning">{{ c.title }}</li>
-				  {% endfor %}
-			   </div> -->
-
 			   <!--Navbar-->
 		      <nav class="navbar navbar-expand-lg navbar-dark orange lighten-2 ml-4 mt-1 mb-5 second-navbar">
 
@@ -167,12 +161,17 @@
 						      <div class="d-flex justify-content-between align-items-center">
 							      <a type="button" class="btn btn-outline-warning waves-effect btn-md ml-0" href="{{ item.get_absolute_url }}">About</a>
 							      <div>
-							      	{% if item in wish_items %}
-								      <i class="fas fa-heart red-text mr-2"></i>
-								      {% else %}								      
-								      <i class="far fa-heart red-text mr-2"></i>
-								      {% endif %}
-								      <a href="{% url 'add-to-cart' item.slug %}" class="amber-text"><i class="fas fa-cart-plus mr-2" aria-hidden="true"></i></a>
+							      	{% if request.user.is_authenticated %}
+								      	{% if item in wish_items %}
+									      <a href="{% url 'remove-from-wish-list' item.slug %}"><i class="fas fa-heart red-text mr-2"></i></a>
+									      {% else %}								      
+									      <a href="{% url 'add-to-wish-list' item.slug %}"><i class="far fa-heart red-text mr-2"></i></a>
+									      {% endif %}
+									   {% else %}
+									   	<i class="far fa-heart red-text mr-2"></i>
+									   {% endif %}
+									   <a href="{% url 'add-to-cart' item.slug %}" class="amber-text"><i class="fas fa-cart-plus mr-2" aria-hidden="true"></i></a>
+
 							      </div>
 						      </div>
 						    </div>
