@@ -27,6 +27,10 @@ def item_list(request, category_slug=None, ordering_obj=None):
             items = Item.objects.all().order_by('category')
         category = None
 
+    if request.GET:
+        if request.GET.get('sale'):
+            items = items.filter(discount_price__isnull=False).order_by('-price')
+
     context = {
         'items': items,
         'categories': categories,
