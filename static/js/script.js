@@ -15,7 +15,7 @@ function ajaxSend(url, params) {
 
 const forms = document.querySelector('form[name=filter]');
 
-froms.addEventListener('submt', function {
+froms.addEventListener('submit', function {
 	let url = tis.action;
 	let params = new URLSearchParams(new FormData(this)).toString();
 	ajaxSend(url, params);

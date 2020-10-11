@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
@@ -30,6 +31,10 @@ def item_list(request, category_slug=None, ordering_obj=None):
     if request.GET:
         if request.GET.get('sale'):
             items = items.filter(discount_price__isnull=False).order_by('-price')
+
+    search_query = request.GET.get('search', '')
+    if search_query:
+        items = Item.objects.filter(title__icontains=search_query)
 
     context = {
         'items': items,
