@@ -41,7 +41,7 @@ class Item(models.Model):
 
 
 class ItemImage(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='item_images')
     image = models.ImageField(upload_to='items/', blank=True)
 
     class Meta:

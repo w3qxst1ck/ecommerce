@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.models import Item, ItemImage
+from core.models import Item, Order, OrderItem
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -10,25 +10,36 @@ class ItemSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'slug', 'category', 'price', 'discount_price')
 
 
-class FilterImagesSerializer(serializers.ListSerializer):
-    def to_representation(self, instance, **kwargs):
-        instance = instance.filter(item_id=kwargs['pk'])
-        return super().to_representation(instance)
-
-
-class ImageSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        list_serializer_class = FilterImagesSerializer
-        model = ItemImage
-        fields = ('id', 'image')
-
-
 class ItemDetailSerializer(serializers.ModelSerializer):
-    images = ImageSerializer(read_only=True, many=True)
     category = serializers.SlugRelatedField(slug_field='title', read_only=True)
 
     class Meta:
         model = Item
         fields = ('id', 'title', 'slug', 'category', 'price', 'discount_price', 'description',
-                  'created', 'image', 'images')
+                  'created', 'image', 'item_images')
+
+
+class CartItemsSerializer(serializers.ModelSerializer):
+    item = serializers.SlugRelatedField(slug_field='title', read_only=True)
+    item_id = serializers.ReadOnlyField(source='item.id')
+
+    class Meta:
+        model = OrderItem
+        fields = ('item_id', 'item', 'quantity')
+
+
+class CartSerializser(serializers.ModelSerializer):
+    user = serializers.SlugRelatedField(slug_field='username', read_only=True)
+    items = CartItemsSerializer(many=True)
+
+    class Meta:
+        model = Order
+        fields = ('id', 'user', 'items', 'start_date', 'ordered')
+
+
+class AddToCartSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Order
+        fields = ('items', )
+

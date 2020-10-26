@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'api.apps.ApiConfig',
 
     #auth
     'django.contrib.sites',
