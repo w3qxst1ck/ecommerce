@@ -28,7 +28,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'api.apps.ApiConfig',
 
     #auth
     'django.contrib.sites',
@@ -39,6 +38,9 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     'core',
+    'api.cart',
+    'api.favorites',
+    'api.items',
 ]
 
 MIDDLEWARE = [

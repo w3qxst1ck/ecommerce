@@ -1,22 +1,6 @@
 from rest_framework import serializers
 
-from core.models import Item, Order, OrderItem, WishItem
-
-
-class ItemSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Item
-        fields = ('id', 'title', 'slug', 'category', 'price', 'discount_price')
-
-
-class ItemDetailSerializer(serializers.ModelSerializer):
-    category = serializers.SlugRelatedField(slug_field='title', read_only=True)
-
-    class Meta:
-        model = Item
-        fields = ('id', 'title', 'slug', 'category', 'price', 'discount_price', 'description',
-                  'created', 'image', 'item_images')
+from core.models import Order, OrderItem
 
 
 class CartItemsSerializer(serializers.ModelSerializer):
@@ -43,12 +27,5 @@ class CartSerializser(serializers.ModelSerializer):
 #         model = Order
 #         fields = ('items', )
 
-
-class WishListSerializer(serializers.ModelSerializer):
-    item = ItemDetailSerializer()
-
-    class Meta:
-        model = WishItem
-        fields = ('item', 'adding_date')
 
 
