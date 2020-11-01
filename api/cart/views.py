@@ -2,11 +2,12 @@ from rest_framework import generics, permissions, views, response
 from django.utils import timezone
 
 from api.cart.serializers import CartSerializser
+from api.items.serializers import ItemDetailSerializer
 from core.models import Item, Order, OrderItem
 
 
 class CartItemsView(generics.ListAPIView):
-    """ Items in cart
+    """ List items in cart
     """
     serializer_class = CartSerializser
     permission_classes = [permissions.IsAuthenticated]
@@ -19,6 +20,14 @@ class AddToCartView(views.APIView):
     """ Add item to cart and delete single item from cart
     """
     permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, pk):
+        try:
+            instance = OrderItem.objects.get(item_id=pk, user=request.user, ordered=False).item
+        except OrderItem.DoesNotExist:
+            return response.Response(status=404)
+        serializer = ItemDetailSerializer(instance)
+        return response.Response(serializer.data)
 
     def post(self, request, pk):
         try:
