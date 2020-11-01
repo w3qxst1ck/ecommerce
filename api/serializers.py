@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.models import Item, Order, OrderItem
+from core.models import Item, Order, OrderItem, WishItem
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -37,9 +37,18 @@ class CartSerializser(serializers.ModelSerializer):
         fields = ('id', 'user', 'items', 'start_date', 'ordered')
 
 
-class AddToCartSerializer(serializers.ModelSerializer):
+# class AddToCartSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = Order
+#         fields = ('items', )
+
+
+class WishListSerializer(serializers.ModelSerializer):
+    item = ItemDetailSerializer()
 
     class Meta:
-        model = Order
-        fields = ('items', )
+        model = WishItem
+        fields = ('item', 'adding_date')
+
 
