@@ -1,5 +1,6 @@
 from rest_framework import generics, permissions, views, response
 from django.utils import timezone
+from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 
 from api.cart.serializers import CartSerializser
 from api.items.serializers import ItemDetailSerializer
@@ -11,13 +12,14 @@ class CartItemsView(generics.ListAPIView):
     """
     serializer_class = CartSerializser
     permission_classes = [permissions.IsAuthenticated]
+    # authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user, ordered=False)
 
 
 class AddToCartView(views.APIView):
-    """ Add item to cart and delete single item from cart
+    """ Detail cart item, add item to cart and delete single item from cart
     """
     permission_classes = [permissions.IsAuthenticated]
 
