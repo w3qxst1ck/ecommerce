@@ -62,7 +62,6 @@ class OrderItem(models.Model):
         return f'{self.item.title} - {self.quantity}'
 
     def total_amount(self):
-        print(self.quantity * self.item.discount_price if self.item.discount_price else self.quantity * self.item.price)
         return self.quantity * self.item.discount_price if self.item.discount_price else self.quantity * self.item.price
 
 
@@ -80,8 +79,6 @@ class Order(models.Model):
         result = 0
         for item in self.items.all():
             result += item.total_amount()
-            print(result)
-        print(result)
         return result
 
 
