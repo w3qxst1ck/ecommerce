@@ -3,7 +3,8 @@ from rest_framework import serializers
 from core.models import Item, Category
 
 
-class ItemSerializer(serializers.ModelSerializer):
+class ItemListSerializer(serializers.ModelSerializer):
+    category = serializers.SlugRelatedField(slug_field='title', read_only=True)
 
     class Meta:
         model = Item
@@ -28,7 +29,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class CategoryDetailSerializer(serializers.ModelSerializer):
-    category_items = ItemSerializer(many=True)
+    category_items = ItemListSerializer(many=True)
 
     class Meta:
         model = Category

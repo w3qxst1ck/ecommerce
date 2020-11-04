@@ -21,11 +21,5 @@ class CartSerializser(serializers.ModelSerializer):
         fields = ('id', 'user', 'items', 'start_date', 'ordered', 'total_order_amount')
 
 
-# class AddToCartSerializer(serializers.ModelSerializer):
-#
-#     class Meta:
-#         model = Order
-#         fields = ('items', )
-
 
 
