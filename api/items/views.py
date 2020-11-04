@@ -1,6 +1,7 @@
 from rest_framework import generics
 from django.db.models import Count
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 from api.items.serializers import ItemListSerializer, ItemDetailSerializer, CategorySerializer, CategoryDetailSerializer
 from api.items.service import ItemFilter
@@ -12,8 +13,10 @@ class ListItemView(generics.ListAPIView):
     """
     queryset = Item.objects.all()
     serializer_class = ItemListSerializer
-    filter_backends = (DjangoFilterBackend,)
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filterset_class = ItemFilter
+    search_fields = ['title', 'description', 'category__title']
+    ordering_fields = ['title', 'price', 'category__title']
 
 
 class ItemDetailView(generics.RetrieveAPIView):
