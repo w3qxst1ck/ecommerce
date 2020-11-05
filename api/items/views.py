@@ -38,3 +38,4 @@ class CategoryDetailView(generics.RetrieveAPIView):
     """
     queryset = Category.objects.all().order_by('id')
     serializer_class = CategoryDetailSerializer
+
