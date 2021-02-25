@@ -30,7 +30,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_filters',
-    # 'djoser',
+    'djoser',
     'rest_framework.authtoken',
 
     #auth
